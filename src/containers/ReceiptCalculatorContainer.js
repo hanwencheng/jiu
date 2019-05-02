@@ -5,7 +5,7 @@ import update from 'react-addons-update'
 import { units } from '../constants/brewConstants'
 import { calculate } from '../modules/calculator/calculator'
 import { Flex } from 'rebass'
-import { BasicButton, HalfBox, Title, FlexCenter } from '../components/basics'
+import { BasicButton, HalfBox, Title, FlexCenter, Separator } from '../components/basics'
 import { InputNumber, Input } from '../components/Input'
 
 export default class ReceiptCalculatorContainer extends Component {
@@ -150,6 +150,9 @@ export default class ReceiptCalculatorContainer extends Component {
           <HalfBox mx={3}>
             <BasicButton onClick={onAddElement}>Add Element</BasicButton>
           </HalfBox>
+  
+          <Separator/>
+          
         </FlexCenter>
         {listItems}
       </div>

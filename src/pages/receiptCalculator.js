@@ -1,21 +1,25 @@
 import React from 'react'
-import Layout from '../components/layout'
 import SEO from '../components/seo'
-import ReceiptCalculatorContainer from '../containers/receiptCalculatorContainer'
+import ReceiptCalculatorContainer from '../containers/ReceiptCalculatorContainer'
 import pagesList from '../pagesList'
+import TwoRowLayout from '../layouts/TwoRowLayout'
+import ReceiptLeftBar from '../containers/ReceiptLeftBar'
 
 export default class ReceiptCalculatorPage extends React.Component {
   render() {
     const pageMeta = pagesList.receiptCalculator
     return (
-      <Layout
-        location={this.props.location}
-        title={pageMeta.title}
-        subtitle={pageMeta.subtitle}
-      >
+      <React.Fragment>
         <SEO title={pageMeta.title} keywords={pageMeta.keywords} />
-        <ReceiptCalculatorContainer />
-      </Layout>
+        <TwoRowLayout
+          location={this.props.location}
+          title={pageMeta.title}
+          subtitle={pageMeta.subtitle}
+        >
+          <ReceiptLeftBar/>
+          <ReceiptCalculatorContainer />
+        </TwoRowLayout>
+      </React.Fragment>
     )
   }
 }

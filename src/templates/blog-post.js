@@ -3,7 +3,7 @@ import { Link, graphql } from 'gatsby'
 import { Box, Heading } from 'rebass'
 import styled from 'styled-components'
 
-import Layout from '../components/layout'
+import SimpleLayout from '../layouts/SimpleLayout'
 import SEO from '../components/seo'
 import { rhythm } from '../utils/typography'
 
@@ -26,7 +26,7 @@ class BlogPostTemplate extends React.Component {
     const { previous, next } = this.props.pageContext
 
     return (
-      <Layout location={this.props.location} title={siteTitle}>
+      <SimpleLayout location={this.props.location} title={siteTitle}>
         <SEO
           title={post.frontmatter.title}
           description={post.frontmatter.description || post.excerpt}
@@ -50,7 +50,7 @@ class BlogPostTemplate extends React.Component {
             )}
           </li>
         </NextLinks>
-      </Layout>
+      </SimpleLayout>
     )
   }
 }

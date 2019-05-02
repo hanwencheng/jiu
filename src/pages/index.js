@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Heading } from 'rebass'
 import { Link, graphql, navigate } from 'gatsby'
 import styled from 'styled-components'
-import Layout from '../components/layout'
+import SimpleLayout from '../layouts/SimpleLayout'
 import SEO from '../components/seo'
 import { rhythm } from '../utils/typography'
 import pagesList from '../pagesList'
@@ -25,7 +25,7 @@ class BlogIndex extends React.Component {
     const pageMeta = pagesList.index;
 
     return (
-      <Layout location={this.props.location} title={pageMeta.title} subtitle={pageMeta.subtitle}>
+      <SimpleLayout location={this.props.location} title={pageMeta.title} subtitle={pageMeta.subtitle}>
         <SEO
           title={pageMeta.title}
           keywords={pageMeta.keywords}
@@ -48,7 +48,7 @@ class BlogIndex extends React.Component {
             </PostItem>
           )
         })}
-      </Layout>
+      </SimpleLayout>
     )
   }
 }
