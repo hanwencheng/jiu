@@ -15,6 +15,10 @@ FairyGates.overrideThemeStyles = () => {
     blockquote: {
       borderLeftColor: colors.primary,
     },
+    input: {
+      boxSizing: 'border-box',
+      width: '100%',
+    },
   }
 }
 

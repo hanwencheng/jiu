@@ -1,6 +1,15 @@
 import React, { Component } from 'react'
 import { Box } from 'rebass'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+
+const NumberInputContainer = styled(Box)`
+  max-width: 80px;
+`
+
+const NumberInputBar = styled.input`
+  text-align: center;
+`
 
 export class Input extends Component {
   static propTypes = {
@@ -22,13 +31,11 @@ export class Input extends Component {
 
   render() {
     return (
-      <Box>
         <input
           type="text"
           value={this.state.value}
           onChange={this.handleChange}
         />
-      </Box>
     )
   }
 }
@@ -67,13 +74,13 @@ export class InputNumber extends React.Component {
 
   render() {
     return (
-      <Box>
-        <input
+      <NumberInputContainer justifyContent="center" alignItems="center">
+        <NumberInputBar
           type="number"
           value={this.state.value}
           onChange={this.handleChange}
         />
-      </Box>
+      </NumberInputContainer>
     )
   }
 }

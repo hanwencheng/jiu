@@ -23,7 +23,7 @@ const Element = ({
     value: upperCased(element.name),
   }))
 
-  const PaddingBox = props => <Box {...props} p={1} />
+  const PaddingBox = props => <FlexCenter {...props} p={1}/>
 
   return (
     <Flex p={1} justifyContent="space-between">

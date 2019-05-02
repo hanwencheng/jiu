@@ -16,11 +16,11 @@ export const Container = styled(Box)`
   margin: 0 auto;
 `
 
-export const FlexCenter = props => <Flex {...props} alignItems="center" />
+export const FlexCenter = props => <Flex {...props} alignItems="center" justifyContent="center"/>
 
 export const BasicButton = props => <Button {...props} />
 
-export const HalfBox = props => <Box {...props} width={[1 / 2, 1 / 2, 1 / 4]} />
+export const HalfBox = props => <FlexCenter {...props} width={[1 / 2, 1 / 2, 1 / 4]}/>
 
 export const Separator = _ => (
   <hr

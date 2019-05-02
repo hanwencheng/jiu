@@ -4,9 +4,19 @@ import Element from '../components/Element'
 import update from 'react-addons-update'
 import { units } from '../constants/brewConstants'
 import { calculate } from '../modules/calculator/calculator'
-import { Flex } from 'rebass'
-import { BasicButton, HalfBox, Title, FlexCenter, Separator } from '../components/basics'
+import { Box, Flex } from 'rebass'
+import {
+  BasicButton,
+  HalfBox,
+  Title,
+  FlexCenter,
+  Separator,
+} from '../components/basics'
 import { InputNumber, Input } from '../components/Input'
+
+const ElementBox = props => (
+  <FlexCenter {...props} width={1 / 5}/>
+)
 
 export default class ReceiptCalculatorContainer extends Component {
   constructor(props) {
@@ -117,30 +127,26 @@ export default class ReceiptCalculatorContainer extends Component {
     return (
       <div>
         <FlexCenter justifyContent="center">
-          <BasicButton m={3} onClick={onCalculate}>Calculate</BasicButton>
+          <BasicButton m={3} onClick={onCalculate}>
+            Calculate
+          </BasicButton>
         </FlexCenter>
         <FlexCenter p={1}>
-          <HalfBox>
-            <InputNumber
-              value={this.state.gallon}
-              onChange={onInputChange}
-            />
-          </HalfBox>
-          <HalfBox>
+          <ElementBox>
+            <InputNumber value={this.state.gallon} onChange={onInputChange} />
+          </ElementBox>
+          <ElementBox>
             <Title name="Gallon" />
-          </HalfBox>
-          <HalfBox>
+          </ElementBox>
+          <ElementBox>
             <Title name="->>" />
-          </HalfBox>
-          <HalfBox>
-            <InputNumber
-              value={this.state.liter}
-              onChange={onOutputChange}
-            />
-          </HalfBox>
-          <HalfBox>
+          </ElementBox>
+          <ElementBox>
+            <InputNumber value={this.state.liter} onChange={onOutputChange} />
+          </ElementBox>
+          <ElementBox>
             <Title name="Liter" />
-          </HalfBox>
+          </ElementBox>
         </FlexCenter>
 
         <FlexCenter py={4} justifyContent="center">
@@ -150,9 +156,8 @@ export default class ReceiptCalculatorContainer extends Component {
           <HalfBox mx={3}>
             <BasicButton onClick={onAddElement}>Add Element</BasicButton>
           </HalfBox>
-  
-          <Separator/>
-          
+
+          <Separator />
         </FlexCenter>
         {listItems}
       </div>
