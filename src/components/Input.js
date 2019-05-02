@@ -11,6 +11,7 @@ export class Input extends Component {
   constructor(props) {
     super(props)
     this.state = { value: props.value || '' }
+    this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange(event) {
@@ -36,13 +37,20 @@ export class InputNumber extends React.Component {
   static propTypes = {
     onChange: PropTypes.func.isRequired,
     value: PropTypes.number,
-    min: PropTypes.number.isRequired,
-    max: PropTypes.number.isRequired,
+    min: PropTypes.number,
+    max: PropTypes.number,
+  }
+
+  static defaultProps = {
+    min: 0,
+    max: 10000,
+    value: 0,
   }
 
   constructor(props) {
     super(props)
-    this.state = { value: props.value || 0 }
+    this.state = { value: props.value }
+    this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange(event) {

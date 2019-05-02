@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { units } from '../constants/brewConstants'
-import { Flex, Box } from 'rebass'
-import { BasicButton, Title } from './basics'
+import { Box, Flex } from 'rebass'
+import { BasicButton, Title, FlexCenter } from './basics'
 import _ from 'lodash'
 import { InputNumber } from './Input'
 import { SelectBasic } from './Select'
@@ -23,31 +23,33 @@ const Element = ({
     value: upperCased(element.name),
   }))
 
+  const PaddingBox = props => <Box {...props} p={1} />
+
   return (
-    <Flex p={1}>
-      <Box span={6}>
-        <Title name={name} />
-      </Box>
-      <Box span={4}>
+    <Flex p={1} justifyContent="space-between">
+      <PaddingBox >
         <InputNumber
-          placeholder={placeholder}
           value={inValue}
           onChange={value => onChange(id, value)}
         />
-      </Box>
-      <Box span={4}>
+      </PaddingBox>
+      <PaddingBox >
         <SelectBasic
           options={options}
           value={unit}
           onChange={value => onUnitChange(id, value)}
         />
-      </Box>
-      <Box span={4}>
+      </PaddingBox>
+      <PaddingBox>
         <Title name={outValue + ' g'} />
-      </Box>
-      <Box span={4}>
+      </PaddingBox>
+      <PaddingBox width={1/4}>
+        <Title name={name} />
+      </PaddingBox>
+      
+      <PaddingBox mr={0}>
         <BasicButton onClick={() => onDelete(id)}>delete</BasicButton>
-      </Box>
+      </PaddingBox>
     </Flex>
   )
 }

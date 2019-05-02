@@ -5,7 +5,7 @@ import update from 'react-addons-update'
 import { units } from '../constants/brewConstants'
 import { calculate } from '../modules/calculator/calculator'
 import { Flex } from 'rebass'
-import { BasicButton, HalfBox, Title } from '../components/basics'
+import { BasicButton, HalfBox, Title, FlexCenter } from '../components/basics'
 import { InputNumber, Input } from '../components/Input'
 
 export default class ReceiptCalculatorContainer extends Component {
@@ -116,12 +116,12 @@ export default class ReceiptCalculatorContainer extends Component {
 
     return (
       <div>
-        <BasicButton onClick={onCalculate}>Calculate</BasicButton>
-        <Flex p={1}>
+        <FlexCenter justifyContent="center">
+          <BasicButton m={3} onClick={onCalculate}>Calculate</BasicButton>
+        </FlexCenter>
+        <FlexCenter p={1}>
           <HalfBox>
             <InputNumber
-              min={0}
-              max={100}
               value={this.state.gallon}
               onChange={onInputChange}
             />
@@ -130,9 +130,10 @@ export default class ReceiptCalculatorContainer extends Component {
             <Title name="Gallon" />
           </HalfBox>
           <HalfBox>
+            <Title name="->>" />
+          </HalfBox>
+          <HalfBox>
             <InputNumber
-              min={0}
-              max={100}
               value={this.state.liter}
               onChange={onOutputChange}
             />
@@ -140,16 +141,16 @@ export default class ReceiptCalculatorContainer extends Component {
           <HalfBox>
             <Title name="Liter" />
           </HalfBox>
-        </Flex>
+        </FlexCenter>
 
-        <Flex className="element">
-          <HalfBox>
+        <FlexCenter py={4} justifyContent="center">
+          <HalfBox mx={3}>
             <Input value={this.state.addName} onChange={onAddNameChange} />
           </HalfBox>
-          <HalfBox>
+          <HalfBox mx={3}>
             <BasicButton onClick={onAddElement}>Add Element</BasicButton>
           </HalfBox>
-        </Flex>
+        </FlexCenter>
         {listItems}
       </div>
     )
