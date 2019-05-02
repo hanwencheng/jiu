@@ -131,6 +131,9 @@ export default class ReceiptCalculatorContainer extends Component {
             Calculate
           </BasicButton>
         </FlexCenter>
+  
+        <Separator />
+        
         <FlexCenter p={1}>
           <ElementBox>
             <InputNumber value={this.state.gallon} onChange={onInputChange} />
@@ -156,9 +159,9 @@ export default class ReceiptCalculatorContainer extends Component {
           <HalfBox mx={3}>
             <BasicButton onClick={onAddElement}>Add Element</BasicButton>
           </HalfBox>
-
-          <Separator />
         </FlexCenter>
+  
+        <Separator />
         {listItems}
       </div>
     )

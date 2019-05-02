@@ -19,5 +19,10 @@ export default {
       backgroundColor: colors.primary,
       fontWeight: '600',
     },
+    secondary: {
+      color: colors.secondaryBg,
+      backgroundColor: colors.secondary,
+      fontWeight: '600',
+    }
   },
 }

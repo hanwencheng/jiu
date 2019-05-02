@@ -24,13 +24,13 @@ export default class Navigation extends React.Component {
             justifyContent="flex-end"
             width={1 / 2}
           >
-            <Button variant="primary" onClick={() => navigate('/')}>
+            <Button variant="secondary" onClick={() => navigate('/')}>
               Home
             </Button>
-            <Button ml={1} variant="primary" onClick={() => navigate('/receiptCalculator')}>
+            <Button ml={1} variant="secondary" onClick={() => navigate('/receiptCalculator')}>
               Receipt Calculator
             </Button>
-            <Button ml={1} variant="primary" onClick={() => navigate('/docs')}>
+            <Button ml={1} variant="secondary" onClick={() => navigate('/docs')}>
               Docs
             </Button>
           </Flex>

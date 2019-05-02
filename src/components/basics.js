@@ -18,7 +18,7 @@ export const Container = styled(Box)`
 
 export const FlexCenter = props => <Flex {...props} alignItems="center" justifyContent="center"/>
 
-export const BasicButton = props => <Button {...props} />
+export const BasicButton = props => <Button {...props} variant="secondary"/>
 
 export const HalfBox = props => <FlexCenter {...props} width={[1 / 2, 1 / 2, 1 / 4]}/>
 
