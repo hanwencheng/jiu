@@ -1,5 +1,5 @@
 import Typography from 'typography'
-import FairyGates from 'typography-theme-fairy-gates'
+import FairyGates from 'typography-theme-ocean-beach'
 import * as colors from './colors'
 
 FairyGates.headerFontFamily = ['Source Sans Pro']

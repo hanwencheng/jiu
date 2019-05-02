@@ -1,11 +1,11 @@
 import React from 'react'
 import { Box, Heading } from 'rebass'
-import { Link, graphql } from 'gatsby'
+import { Link, graphql, navigate } from 'gatsby'
 import styled from 'styled-components'
-
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import { rhythm } from '../utils/typography'
+import appConstant from '../constants/appConstant'
 
 const PostItem = styled(Box)`
   & ~ & {
@@ -21,11 +21,10 @@ const PostTitle = styled(Heading)`
 class BlogIndex extends React.Component {
   render() {
     const { data } = this.props
-    const siteTitle = data.site.siteMetadata.title
     const posts = data.allMarkdownRemark.edges
 
     return (
-      <Layout location={this.props.location} title={siteTitle}>
+      <Layout location={this.props.location} title={appConstant.name} subtitle={appConstant.slogan}>
         <SEO
           title="All posts"
           keywords={[`blog`, `gatsby`, `javascript`, `react`]}

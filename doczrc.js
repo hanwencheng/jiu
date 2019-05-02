@@ -1,10 +1,11 @@
 import * as colors from './src/utils/colors'
 
 export default {
-  title: 'Coolest Library',
+  title: 'Brew Keller',
   base: '/docs',
   ignore: ['**/blog/**', 'readme.md'],
-  menu: ['Getting Started', 'Components'],
+  menu: ['Wow', 'Components'],
+  repository: false,
   themeConfig: {
     colors: {
       primary: colors.primary,

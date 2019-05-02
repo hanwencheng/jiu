@@ -7,8 +7,10 @@
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   },
   "dependencies": {
+    "antd": "^3.16.6",
     "docz": "1.0.3",
     "docz-theme-default": "1.0.3",
+    "eslint": "^5.16.0",
     "gatsby": "^2.3.23",
     "gatsby-image": "^2.0.39",
     "gatsby-plugin-offline": "^2.0.25",
@@ -24,8 +26,11 @@
     "gatsby-theme-docz": "1.0.3",
     "gatsby-transformer-remark": "^2.3.8",
     "gatsby-transformer-sharp": "^2.1.18",
+    "lodash": "^4.17.11",
     "prismjs": "^1.16.0",
+    "prop-types": "^15.7.2",
     "react": "^16.8.6",
+    "react-addons-update": "^15.6.2",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.0",
     "react-typography": "^0.16.19",
@@ -33,9 +38,11 @@
     "styled-components": "^4.2.0",
     "typeface-source-sans-pro": "^0.0.54",
     "typography": "^0.16.19",
-    "typography-theme-fairy-gates": "^0.16.19"
+    "typography-theme-fairy-gates": "^0.16.19",
+    "typography-theme-ocean-beach": "^0.16.19"
   },
   "devDependencies": {
+    "eslint-config-universe": "^1.0.7",
     "prettier": "^1.17.0"
   },
   "homepage": "https://github.com/pedronauck/gatsby-starter-docz#readme",

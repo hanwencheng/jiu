@@ -1,46 +1,31 @@
 import React from 'react'
-import { navigate } from 'gatsby'
+
 import { Button, Box, Heading } from 'rebass'
 import { ThemeProvider } from 'styled-components'
-import styled from 'styled-components'
-
+import { navigate } from 'gatsby'
 import theme from '../utils/theme'
 import { rhythm } from '../utils/typography'
-
-const Header = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: ${p => p.theme.colors.lightgray};
-`
-
-const Container = styled(Box)`
-  max-width: 720px;
-  margin: 0 auto;
-`
+import { Container, Header } from './basics'
+import appConstant from '../constants/appConstant'
+import Navigation from './Navigation'
+import PropTypes from 'prop-types'
+import _ from 'lodash';
 
 class Layout extends React.Component {
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    subtitle: PropTypes.string,
+  }
+  
   render() {
-    const { children } = this.props
+    const { children, title, subtitle } = this.props
     return (
       <ThemeProvider theme={theme}>
         <React.Fragment>
+          <Navigation />
           <Header py={5} mb={5}>
-            <Heading fontSize={[6, 7]}>Coolest Library</Heading>
-            <Heading fontWeight={400}>Some cool subtitle here!</Heading>
-            <Box display="flex" mt={4}>
-              <Button variant="primary" onClick={() => navigate('/')}>
-                Home
-              </Button>
-              <Button
-                ml={2}
-                variant="primary"
-                onClick={() => navigate('/docs')}
-              >
-                Getting Started
-              </Button>
-            </Box>
+            <Heading fontSize={[5, 6]}>{title}</Heading>
+            {!_.isEmpty(subtitle) && <Heading fontWeight={400}>{subtitle}!</Heading>}
           </Header>
           <Container>
             <main>{children}</main>
@@ -51,9 +36,9 @@ class Layout extends React.Component {
               }}
             />
             <Box as="footer" mb={4}>
-              © {new Date().getFullYear()}, Built with
+              © {new Date().getFullYear()}, Built By
               {` `}
-              <a href="https://www.gatsbyjs.org">Gatsby</a>
+              <a href="http://www.hanwencheng.com">Hanwen Cheng</a>
             </Box>
           </Container>
         </React.Fragment>

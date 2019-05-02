@@ -18,6 +18,7 @@ module.exports = {
       0, // disable
       // { "ignorePureComponents": true }
     ],
-    "handle-callback-err": 0
+    "handle-callback-err": 0,
+    "space-infix-ops": 0,
   }
 };
