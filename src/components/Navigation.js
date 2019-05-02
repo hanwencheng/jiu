@@ -27,8 +27,11 @@ export default class Navigation extends React.Component {
             <Button variant="primary" onClick={() => navigate('/')}>
               Home
             </Button>
+            <Button ml={1} variant="primary" onClick={() => navigate('/receiptCalculator')}>
+              Receipt Calculator
+            </Button>
             <Button ml={1} variant="primary" onClick={() => navigate('/docs')}>
-              Getting Started
+              Docs
             </Button>
           </Flex>
         </Flex>

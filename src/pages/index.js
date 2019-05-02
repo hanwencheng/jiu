@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import { rhythm } from '../utils/typography'
-import appConstant from '../constants/appConstant'
+import pagesList from '../pagesList'
 
 const PostItem = styled(Box)`
   & ~ & {
@@ -22,12 +22,13 @@ class BlogIndex extends React.Component {
   render() {
     const { data } = this.props
     const posts = data.allMarkdownRemark.edges
+    const pageMeta = pagesList.index;
 
     return (
-      <Layout location={this.props.location} title={appConstant.name} subtitle={appConstant.slogan}>
+      <Layout location={this.props.location} title={pageMeta.title} subtitle={pageMeta.subtitle}>
         <SEO
-          title="All posts"
-          keywords={[`blog`, `gatsby`, `javascript`, `react`]}
+          title={pageMeta.title}
+          keywords={pageMeta.keywords}
         />
         {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
