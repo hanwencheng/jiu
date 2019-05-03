@@ -15,7 +15,6 @@ class Element extends React.Component {
   static propTypes = {
     element: PropTypes.string.isRequired,
 
-    elements: PropTypes.object.isRequired,
     updateElement: PropTypes.func.isRequired,
     deleteElement: PropTypes.func.isRequired,
   }
