@@ -6,53 +6,75 @@ import _ from 'lodash'
 import { InputNumber } from './Input'
 import { SelectBasic } from './Select'
 import { upperCased } from '../utils/stringUtils'
+import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux'
+import { receiptAction } from '../state/receiptActions'
+import { connect } from 'react-redux'
 
-const Element = ({
-  name,
-  inValue,
-  outValue,
-  unit,
-  onChange,
-  onDelete,
-  onUnitChange,
-}) => {
-  const placeholder = `please input ${name}`
-  const options = _.map(units, element => ({
-    key: element.name,
-    value: upperCased(element.name),
-  }))
+class Element extends React.Component {
+  static propTypes = {
+    element: PropTypes.object.isRequired,
 
-  const PaddingBox = props => <FlexCenter {...props} p={1} />
+    updateElement: PropTypes.func.isRequired,
+    deleteElement: PropTypes.func.isRequired,
+  }
 
-  return (
-    <Flex p={1} justifyContent="space-between">
-      <PaddingBox>
-        <InputNumber
-          value={inValue}
-          onChange={value => onChange(name, value)}
-        />
-      </PaddingBox>
-      <PaddingBox>
-        <SelectBasic
-          options={options}
-          value={unit}
-          onChange={value => {
-            onUnitChange(name, value)
-          }}
-        />
-      </PaddingBox>
-      <PaddingBox>
-        <Title name={outValue + ' g'} />
-      </PaddingBox>
-      <PaddingBox width={1 / 4}>
-        <Title name={name} />
-      </PaddingBox>
+  render() {
+    delete units['__filemeta']
+    const options = _.map(units, unit => ({
+      key: unit.name,
+      value: upperCased(unit.name),
+    }))
+    const { element, updateElement, deleteElement } = this.props
 
-      <PaddingBox mr={0}>
-        <BasicButton onClick={() => onDelete(name)}>delete</BasicButton>
-      </PaddingBox>
-    </Flex>
-  )
+    const PaddingBox = props => <FlexCenter {...props} p={1} /*width={1/4}*/ />
+    return (
+      <Flex p={1} justifyContent="space-between">
+        <PaddingBox>
+          <InputNumber
+            value={element.inValue}
+            onChange={value => {
+              const elementData = _.assign(element, { inValue: value })
+              updateElement(element.name, elementData)
+            }}
+          />
+        </PaddingBox>
+        <PaddingBox>
+          <SelectBasic
+            options={options}
+            value={element.unit}
+            onChange={value => {
+              const elementData = _.assign(element, { unit: value })
+              updateElement(element.name, elementData)
+            }}
+          />
+        </PaddingBox>
+        <PaddingBox>
+          <Title name={element.outValue + ' g'} />
+        </PaddingBox>
+        <PaddingBox width={1 / 4}>
+          <Title name={name} />
+        </PaddingBox>
+
+        <PaddingBox mr={0}>
+          <BasicButton onClick={() => deleteElement(element.name)}>
+            delete
+          </BasicButton>
+        </PaddingBox>
+      </Flex>
+    )
+  }
 }
 
-export default Element
+const mapStateToProps = state => ({})
+
+const mapDispatchToProps = _.curry(bindActionCreators)({
+  updateElement: receiptAction.updateElement,
+  deleteElement: receiptAction.deleteElement,
+  addElement: receiptAction.addElement,
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Element)

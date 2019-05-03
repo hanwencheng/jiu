@@ -53,7 +53,7 @@ export class InputNumber extends React.Component {
     max: 10000,
     value: 0,
   }
-
+  
   constructor(props) {
     super(props)
     this.state = { value: props.value }
@@ -62,12 +62,16 @@ export class InputNumber extends React.Component {
 
   handleChange(event) {
     const { onChange, min, max } = this.props
-    let value = event.target.value
+    let value = parseFloat(event.target.value)
+    if (_.isNaN(value)) value = 0
+
     if (value < min) {
       value = min
     } else if (value > max) {
       value = max
     }
+    if(value === this.state.value)
+      return;
     this.setState({ value })
     return onChange(value)
   }

@@ -1,6 +1,6 @@
 export default {
   index: {
-    title: 'Brew Keller',
+    title: 'Secret Brew Keller',
     subtitle: 'Everything about brewing beer',
     keywords: ['beer', 'brew', 'study'],
   },

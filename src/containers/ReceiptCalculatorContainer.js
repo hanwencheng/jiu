@@ -4,7 +4,8 @@ import Element from '../components/Element'
 import update from 'react-addons-update'
 import { units } from '../constants/brewConstants'
 import { calculate } from '../modules/calculator/calculator'
-import { Box, Flex } from 'rebass'
+import { bindActionCreators } from 'redux'
+
 import PropTypes from 'prop-types'
 import {
   BasicButton,
@@ -14,152 +15,83 @@ import {
   Separator,
 } from '../components/basics'
 import { InputNumber, Input } from '../components/Input'
+import DynamicListItem from '../components/DynamicListItem'
+import { connect } from 'react-redux'
+import { receiptAction } from '../state/receiptActions'
 
 const ElementBox = props => <FlexCenter {...props} width={1 / 5} />
 
-export default class ReceiptCalculatorContainer extends Component {
+class ReceiptCalculatorContainer extends Component {
   static propTypes = {
     selectedReceipt: PropTypes.string,
     list: PropTypes.array.isRequired,
+    inputVolume: PropTypes.number.isRequired,
+    outputVolume: PropTypes.number.isRequired,
+    elements: PropTypes.object.isRequired,
+
+    updateInputVolume: PropTypes.func.isRequired,
+    updateOutputVolume: PropTypes.func.isRequired,
+    addElement: PropTypes.func.isRequired,
+    loadElements: PropTypes.func.isRequired,
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      gallon: 5,
-      liter: 30,
-      elements: {
-        ipa: {
-          name: 'ipa',
-          inValue: 0,
-          outValue: 0,
-          unit: units.pound.name,
-        },
-      },
+      elements: {},
       addName: 'element name',
     }
   }
 
-  componentDidUpdate(prevProps) {
-    const { selectedReceipt, list } = this.props
-    if (prevProps.selectedReceipt === selectedReceipt) return
-    if (_.isEmpty(selectedReceipt)) return
-
-    const receiptData = _.find(list, { name: selectedReceipt })
-    if (_.isEmpty(receiptData)) return
-
-    this.setState({
-      elements: _.reduce(
-        receiptData.elements,
-        (acc, element) =>
-          _.assign(acc, {
-            [element.name]: {
-              name: element.name,
-              inValue: element.value,
-              outValue: 0,
-              unit: units[element.unit].name,
-            },
-          }),
-        {}
-      ),
-    })
-  }
-
   render() {
-    const onInputChange = value => {
-      this.setState({ gallon: value })
-    }
-
-    const onOutputChange = value => {
-      this.setState({ liter: value })
-    }
-
-    const onAddNameChange = e => {
-      this.setState({ addName: e.target.value })
-    }
-
-    const onElementDelete = name => {
-      this.setState(prevState => {
-        return {
-          elements: _.cloneDeep(_.omit(prevState.elements, name)),
-        }
-      })
-    }
-
-    const onElementChange = (name, value) => {
-      this.setState(prevState => {
-        return {
-          elements: update(prevState.elements, {
-            [name]: { inValue: { $set: value } },
-          }),
-        }
-      })
-    }
-
-    const onElementUnitChange = (name, value) => {
-      this.setState(prevState => {
-        return {
-          elements: update(prevState.elements, {
-            [name]: { unit: { $set: value } },
-          }),
-        }
-      })
+    const onAddNameChange = v => {
+      this.setState({ addName: v })
     }
 
     const onAddElement = () => {
-      this.setState(prevState => {
-        const name = this.state.addName
-        const id = name.trim()
-        return {
-          elements: _.cloneDeep(
-            _.assign(prevState.elements, {
-              [id]: {
-                name: id,
-                inValue: 0,
-                outValue: 0,
-                unit: units.pound.name,
-              },
-            })
-          ),
-        }
+      const { addElement } = this.props
+      const name = this.state.addName
+      const id = name.trim()
+      addElement({
+        name: id,
+        inValue: 0,
+        outValue: 0,
+        unit: units.pound.name,
       })
     }
 
     const onCalculate = () => {
+      const { elements, inputVolume, outputVolume, loadElements } = this.props
       this.setState(prevState => {
-        const newElements = _.mapValues(prevState.elements, (v, k) => {
+        const newElements = _.mapValues(elements, (v, k) => {
           const newValue = _.cloneDeep(v)
           newValue.outValue = calculate(
-            this.state.gallon,
-            this.state.liter,
+            inputVolume,
+            outputVolume,
             v.inValue,
             v.unit
           )
           return newValue
         })
-        return { elements: newElements }
+        loadElements(newElements, inputVolume)
       })
     }
 
-    const ListItems = () => (
-      <React.Fragment>
-        {_.values(this.state.elements).map(element => (
-          <Element
-            {...element}
-            key={element.name}
-            onChange={onElementChange}
-            onDelete={onElementDelete}
-            onUnitChange={onElementUnitChange}
-          />
-        ))}
-      </React.Fragment>
-    )
-
+    const {
+      inputVolume,
+      outputVolume,
+      updateInputVolume,
+      updateOutputVolume,
+    } = this.props
     return (
       <div>
         <FlexCenter justifyContent="center">
           <BasicButton m={3} onClick={onCalculate}>
             Calculate
+          </BasicButton>
+
+          <BasicButton m={3} onClick={onCalculate}>
+            Save Receipt
           </BasicButton>
         </FlexCenter>
 
@@ -167,7 +99,7 @@ export default class ReceiptCalculatorContainer extends Component {
 
         <FlexCenter p={1}>
           <ElementBox>
-            <InputNumber value={this.state.gallon} onChange={onInputChange} />
+            <InputNumber value={inputVolume} onChange={updateInputVolume} />
           </ElementBox>
           <ElementBox>
             <Title name="Gallon" />
@@ -176,7 +108,7 @@ export default class ReceiptCalculatorContainer extends Component {
             <Title name="->>" />
           </ElementBox>
           <ElementBox>
-            <InputNumber value={this.state.liter} onChange={onOutputChange} />
+            <InputNumber value={outputVolume} onChange={updateOutputVolume} />
           </ElementBox>
           <ElementBox>
             <Title name="Liter" />
@@ -193,8 +125,26 @@ export default class ReceiptCalculatorContainer extends Component {
         </FlexCenter>
 
         <Separator />
-        <ListItems />
+        <DynamicListItem />
       </div>
     )
   }
 }
+
+const mapStateToProps = state => ({
+  inputVolume: state.receipt.input.volume,
+  outputVolume: state.receipt.output.volume,
+  elements: state.receipt.elements,
+})
+
+const mapDispatchToProps = _.curry(bindActionCreators)({
+  updateInputVolume: receiptAction.updateInputVolume,
+  updateOutputVolume: receiptAction.updateOutputVolume,
+  addElement: receiptAction.addElement,
+  loadElements: receiptAction.loadElements,
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ReceiptCalculatorContainer)

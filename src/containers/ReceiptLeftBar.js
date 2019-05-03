@@ -4,15 +4,25 @@ import PropTypes from 'prop-types'
 import { FlexCenter } from '../components/basics'
 import { Text, Box } from 'rebass'
 import strings from '../constants/strings'
-import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
-import styled from 'styled-components'
+import { fadeIn, fadeOut, flip } from 'react-animations'
+import {
+  IoIosArrowDown,
+} from 'react-icons/io'
+import styled, { keyframes } from 'styled-components'
+import { secondary } from '../utils/colors'
 
-const Title = ({ onClick, className, text, withIcon }) => (
+const AnimatedArrow = styled(IoIosArrowDown)`
+  transform: ${props => props.flip ?  "rotateX(180deg)" : ""};
+  animation: keyframes(flip) 0.5s;
+  transition: transform 0.5s;
+`
+
+const Title = ({ onClick, className, text, withIcon, isListOpen }) => (
   <FlexCenter className={className} my={3} onClick={() => onClick()}>
     <Text fontSize={[2, 3]}>{text}</Text>
     {withIcon && (
       <FlexCenter mx={2}>
-        <IoIosArrowDown />
+        <AnimatedArrow flip={isListOpen}/>
       </FlexCenter>
     )}
   </FlexCenter>
@@ -20,13 +30,14 @@ const Title = ({ onClick, className, text, withIcon }) => (
 
 const HoverTitle = styled(Title)`
   :hover {
-    color: lightgrey;
+    color: ${secondary};
     cursor: pointer;
   }
+  transition: color 0.2s linear;
 `
 
-const ReceiptList = ({ list, onClick }) => (
-  <FlexCenter flexDirection="column">
+const ReceiptList = ({ className, list, onClick }) => (
+  <FlexCenter className={className} flexDirection="column">
     {list.map(node => {
       return (
         <FlexCenter key={node.name}>
@@ -36,6 +47,13 @@ const ReceiptList = ({ list, onClick }) => (
     })}
   </FlexCenter>
 )
+
+const AnimateReceiptList = styled(ReceiptList)`
+  visibility: ${props => props.show ?  'visible': 'hidden'};
+  animation: ${props => props.show ?  keyframes(fadeIn) : keyframes(fadeOut)} 0.5s;
+  display: inline-block;
+  transition: visibility 0.5s;
+`
 
 export default class ReceiptLeftBar extends React.Component {
   static propTypes = {
@@ -65,13 +83,13 @@ export default class ReceiptLeftBar extends React.Component {
             onClick={() => this.handleOnTitleClick()}
             text={strings.RECEIPT_TITLE}
             withIcon
+            isListOpen={this.state.isListOpen}
           />
-          {this.state.isListOpen && (
-            <ReceiptList
-              list={list}
-              onClick={receiptName => this.props.onClick(receiptName)}
-            />
-          )}
+          <AnimateReceiptList
+            show={this.state.isListOpen}
+            list={list}
+            onClick={receiptName => this.props.onClick(receiptName)}
+          />
         </Box>
       </FlexCenter>
     )
