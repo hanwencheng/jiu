@@ -13,8 +13,9 @@ import { connect } from 'react-redux'
 
 class Element extends React.Component {
   static propTypes = {
-    element: PropTypes.object.isRequired,
+    element: PropTypes.string.isRequired,
 
+    elements: PropTypes.object.isRequired,
     updateElement: PropTypes.func.isRequired,
     deleteElement: PropTypes.func.isRequired,
   }
@@ -53,7 +54,7 @@ class Element extends React.Component {
           <Title name={element.outValue + ' g'} />
         </PaddingBox>
         <PaddingBox width={1 / 4}>
-          <Title name={name} />
+          <Title name={element.name} />
         </PaddingBox>
 
         <PaddingBox mr={0}>

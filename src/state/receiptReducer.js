@@ -1,9 +1,16 @@
 import { receiptActionsType } from './receiptActions'
 import _ from 'lodash'
-import { volumeUnits } from '../constants/brewConstants'
+import { units, volumeUnits } from '../constants/brewConstants'
 
 export const INIT_VALUE = {
-  elements: {},
+  elements: {
+    ipa: {
+      name: 'ipa',
+      inValue: 10,
+      outValue: 0,
+      unit: units.ounce.name,
+    }
+  },
   input: { volume: 5, unit: volumeUnits.gallon.name },
   output: { volume: 30, unit: volumeUnits.liter.name },
 }

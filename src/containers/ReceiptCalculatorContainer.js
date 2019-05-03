@@ -38,7 +38,6 @@ class ReceiptCalculatorContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      elements: {},
       addName: 'element name',
     }
   }
