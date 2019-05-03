@@ -8,7 +8,6 @@ import { SelectBasic } from './Select'
 import { upperCased } from '../utils/stringUtils'
 
 const Element = ({
-  id,
   name,
   inValue,
   outValue,
@@ -23,32 +22,34 @@ const Element = ({
     value: upperCased(element.name),
   }))
 
-  const PaddingBox = props => <FlexCenter {...props} p={1}/>
+  const PaddingBox = props => <FlexCenter {...props} p={1} />
 
   return (
     <Flex p={1} justifyContent="space-between">
-      <PaddingBox >
+      <PaddingBox>
         <InputNumber
           value={inValue}
-          onChange={value => onChange(id, value)}
+          onChange={value => onChange(name, value)}
         />
       </PaddingBox>
-      <PaddingBox >
+      <PaddingBox>
         <SelectBasic
           options={options}
           value={unit}
-          onChange={value => onUnitChange(id, value)}
+          onChange={value => {
+            onUnitChange(name, value)
+          }}
         />
       </PaddingBox>
       <PaddingBox>
         <Title name={outValue + ' g'} />
       </PaddingBox>
-      <PaddingBox width={1/4}>
+      <PaddingBox width={1 / 4}>
         <Title name={name} />
       </PaddingBox>
-      
+
       <PaddingBox mr={0}>
-        <BasicButton onClick={() => onDelete(id)}>delete</BasicButton>
+        <BasicButton onClick={() => onDelete(name)}>delete</BasicButton>
       </PaddingBox>
     </Flex>
   )

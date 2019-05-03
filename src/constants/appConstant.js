@@ -1,4 +1,4 @@
 export default {
   name: 'Brew Keller',
-  slogan: 'Everything about beer brewing'
+  slogan: 'Everything about beer brewing',
 }

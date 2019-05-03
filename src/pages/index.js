@@ -22,14 +22,15 @@ class BlogIndex extends React.Component {
   render() {
     const { data } = this.props
     const posts = data.allMarkdownRemark.edges
-    const pageMeta = pagesList.index;
+    const pageMeta = pagesList.index
 
     return (
-      <SimpleLayout location={this.props.location} title={pageMeta.title} subtitle={pageMeta.subtitle}>
-        <SEO
-          title={pageMeta.title}
-          keywords={pageMeta.keywords}
-        />
+      <SimpleLayout
+        location={this.props.location}
+        title={pageMeta.title}
+        subtitle={pageMeta.subtitle}
+      >
+        <SEO title={pageMeta.title} keywords={pageMeta.keywords} />
         {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
           return (

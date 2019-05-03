@@ -23,6 +23,6 @@ export default {
       color: colors.secondaryBg,
       backgroundColor: colors.secondary,
       fontWeight: '600',
-    }
+    },
   },
 }

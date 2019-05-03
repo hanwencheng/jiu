@@ -5,6 +5,7 @@ import update from 'react-addons-update'
 import { units } from '../constants/brewConstants'
 import { calculate } from '../modules/calculator/calculator'
 import { Box, Flex } from 'rebass'
+import PropTypes from 'prop-types'
 import {
   BasicButton,
   HalfBox,
@@ -14,11 +15,14 @@ import {
 } from '../components/basics'
 import { InputNumber, Input } from '../components/Input'
 
-const ElementBox = props => (
-  <FlexCenter {...props} width={1 / 5}/>
-)
+const ElementBox = props => <FlexCenter {...props} width={1 / 5} />
 
 export default class ReceiptCalculatorContainer extends Component {
+  static propTypes = {
+    selectedReceipt: PropTypes.string,
+    list: PropTypes.array.isRequired,
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -26,15 +30,39 @@ export default class ReceiptCalculatorContainer extends Component {
       liter: 30,
       elements: {
         ipa: {
-          id: 'ipa',
           name: 'ipa',
           inValue: 0,
           outValue: 0,
-          unit: units.pounds.name,
+          unit: units.pound.name,
         },
       },
       addName: 'element name',
     }
+  }
+
+  componentDidUpdate(prevProps) {
+    const { selectedReceipt, list } = this.props
+    if (prevProps.selectedReceipt === selectedReceipt) return
+    if (_.isEmpty(selectedReceipt)) return
+
+    const receiptData = _.find(list, { name: selectedReceipt })
+    if (_.isEmpty(receiptData)) return
+
+    this.setState({
+      elements: _.reduce(
+        receiptData.elements,
+        (acc, element) =>
+          _.assign(acc, {
+            [element.name]: {
+              name: element.name,
+              inValue: element.value,
+              outValue: 0,
+              unit: units[element.unit].name,
+            },
+          }),
+        {}
+      ),
+    })
   }
 
   render() {
@@ -50,29 +78,29 @@ export default class ReceiptCalculatorContainer extends Component {
       this.setState({ addName: e.target.value })
     }
 
-    const onElementDelete = id => {
+    const onElementDelete = name => {
       this.setState(prevState => {
         return {
-          elements: _.cloneDeep(_.omit(prevState.elements, id)),
+          elements: _.cloneDeep(_.omit(prevState.elements, name)),
         }
       })
     }
 
-    const onElementChange = (id, value) => {
+    const onElementChange = (name, value) => {
       this.setState(prevState => {
         return {
           elements: update(prevState.elements, {
-            [id]: { inValue: { $set: value } },
+            [name]: { inValue: { $set: value } },
           }),
         }
       })
     }
 
-    const onElementUnitChange = (id, value) => {
+    const onElementUnitChange = (name, value) => {
       this.setState(prevState => {
         return {
           elements: update(prevState.elements, {
-            [id]: { unit: { $set: value } },
+            [name]: { unit: { $set: value } },
           }),
         }
       })
@@ -86,11 +114,10 @@ export default class ReceiptCalculatorContainer extends Component {
           elements: _.cloneDeep(
             _.assign(prevState.elements, {
               [id]: {
-                id,
-                name,
+                name: id,
                 inValue: 0,
                 outValue: 0,
-                unit: units.pounds.name,
+                unit: units.pound.name,
               },
             })
           ),
@@ -114,15 +141,19 @@ export default class ReceiptCalculatorContainer extends Component {
       })
     }
 
-    const listItems = _.values(this.state.elements).map(element => (
-      <Element
-        {...element}
-        key={element.id}
-        onChange={onElementChange}
-        onDelete={onElementDelete}
-        onUnitChange={onElementUnitChange}
-      />
-    ))
+    const ListItems = () => (
+      <React.Fragment>
+        {_.values(this.state.elements).map(element => (
+          <Element
+            {...element}
+            key={element.name}
+            onChange={onElementChange}
+            onDelete={onElementDelete}
+            onUnitChange={onElementUnitChange}
+          />
+        ))}
+      </React.Fragment>
+    )
 
     return (
       <div>
@@ -131,9 +162,9 @@ export default class ReceiptCalculatorContainer extends Component {
             Calculate
           </BasicButton>
         </FlexCenter>
-  
+
         <Separator />
-        
+
         <FlexCenter p={1}>
           <ElementBox>
             <InputNumber value={this.state.gallon} onChange={onInputChange} />
@@ -160,9 +191,9 @@ export default class ReceiptCalculatorContainer extends Component {
             <BasicButton onClick={onAddElement}>Add Element</BasicButton>
           </HalfBox>
         </FlexCenter>
-  
+
         <Separator />
-        {listItems}
+        <ListItems />
       </div>
     )
   }
