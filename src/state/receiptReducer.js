@@ -9,7 +9,7 @@ export const INIT_VALUE = {
       inValue: 10,
       outValue: 0,
       unit: units.ounce.name,
-    }
+    },
   },
   input: { volume: 5, unit: volumeUnits.gallon.name },
   output: { volume: 30, unit: volumeUnits.liter.name },

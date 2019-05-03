@@ -5,14 +5,12 @@ import { FlexCenter } from '../components/basics'
 import { Text, Box } from 'rebass'
 import strings from '../constants/strings'
 import { fadeIn, fadeOut, flip } from 'react-animations'
-import {
-  IoIosArrowDown,
-} from 'react-icons/io'
+import { IoIosArrowDown } from 'react-icons/io'
 import styled, { keyframes } from 'styled-components'
 import { secondary } from '../utils/colors'
 
 const AnimatedArrow = styled(IoIosArrowDown)`
-  transform: ${props => props.flip ?  "rotateX(180deg)" : ""};
+  transform: ${props => (props.flip ? 'rotateX(180deg)' : '')};
   animation: keyframes(flip) 0.5s;
   transition: transform 0.5s;
 `
@@ -22,7 +20,7 @@ const Title = ({ onClick, className, text, withIcon, isListOpen }) => (
     <Text fontSize={[2, 3]}>{text}</Text>
     {withIcon && (
       <FlexCenter mx={2}>
-        <AnimatedArrow flip={isListOpen}/>
+        <AnimatedArrow flip={isListOpen} />
       </FlexCenter>
     )}
   </FlexCenter>
@@ -49,8 +47,9 @@ const ReceiptList = ({ className, list, onClick }) => (
 )
 
 const AnimateReceiptList = styled(ReceiptList)`
-  visibility: ${props => props.show ?  'visible': 'hidden'};
-  animation: ${props => props.show ?  keyframes(fadeIn) : keyframes(fadeOut)} 0.5s;
+  visibility: ${props => (props.show ? 'visible' : 'hidden')};
+  animation: ${props => (props.show ? keyframes(fadeIn) : keyframes(fadeOut))}
+    0.5s;
   display: inline-block;
   transition: visibility 0.5s;
 `

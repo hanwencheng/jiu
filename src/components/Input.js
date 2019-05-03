@@ -53,7 +53,7 @@ export class InputNumber extends React.Component {
     max: 10000,
     value: 0,
   }
-  
+
   constructor(props) {
     super(props)
     this.state = { value: props.value }
@@ -70,8 +70,7 @@ export class InputNumber extends React.Component {
     } else if (value > max) {
       value = max
     }
-    if(value === this.state.value)
-      return;
+    if (value === this.state.value) return
     this.setState({ value })
     return onChange(value)
   }
