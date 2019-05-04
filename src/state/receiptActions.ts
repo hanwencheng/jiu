@@ -8,31 +8,47 @@ export const receiptActionsType = {
   UPDATE_OUTPUT_VOLUME: 'RECEIPT_UPDATE_OUTPUT_VOLUME',
 }
 
+interface ElementData {
+  inValue: number
+  outValue: number
+  name: string
+  unit: string
+}
+
+interface VolumeData {
+  value: number
+  unit: string
+}
+
 export const receiptAction = {
-  addElement: element => ({ type: receiptActionsType.ADD_ELEMENT, element }),
-  deleteElement: elementName => ({
+  addElement: (element: ElementData) => ({
+    type: receiptActionsType.ADD_ELEMENT,
+    element,
+  }),
+  deleteElement: (elementName: string) => ({
     type: receiptActionsType.DELETE_ELEMENT,
     elementName,
   }),
-  updateElement: (elementName, elementData) => ({
+  updateElement: (elementName: string, elementData: ElementData) => ({
     type: receiptActionsType.UPDATE_ELEMENT,
     elementName,
     elementData,
   }),
-  loadElements: (elements, volume) => ({
+  loadElements: (elements: Array<ElementData>, volumeData: VolumeData) => ({
     type: receiptActionsType.LOAD_ELEMENTS,
     elements,
-    volume,
+    volumeData,
   }),
   clearElements: () => ({ type: receiptActionsType.CLEAR_ELEMENTS }),
-  updateInputVolume: volume => {
-    debugger;
-    return ({
+  updateInputVolume: (volume: number) => {
+    debugger
+    return {
       type: receiptActionsType.UPDATE_INPUT_VOLUME,
       volume,
-    })
+    }
   },
-  updateOutputVolume: volume => ({
-    type: receiptActionsType.UPDATE_OUTPUT_VOLUME, volume,
+  updateOutputVolume: (volume: number) => ({
+    type: receiptActionsType.UPDATE_OUTPUT_VOLUME,
+    volume,
   }),
 }

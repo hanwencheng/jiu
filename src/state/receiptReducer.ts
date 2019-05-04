@@ -47,7 +47,7 @@ export const receiptReducer = (state = INIT_VALUE, action) => {
       return {
         ...state,
         elements: action.elements,
-        input: action.volume,
+        input: action.volumeData,
       }
     }
     case receiptActionsType.CLEAR_ELEMENTS: {
