@@ -5,6 +5,7 @@ import update from 'react-addons-update'
 import { units } from '../constants/brewConstants'
 import { calculate } from '../modules/calculator/calculator'
 import { bindActionCreators } from 'redux'
+import request from 'axios'
 
 import PropTypes from 'prop-types'
 import {
@@ -23,7 +24,6 @@ const ElementBox = props => <FlexCenter {...props} width={1 / 5} />
 
 class ReceiptCalculatorContainer extends Component {
   static propTypes = {
-    selectedReceipt: PropTypes.string,
     list: PropTypes.array.isRequired,
     inputVolume: PropTypes.number.isRequired,
     outputVolume: PropTypes.number.isRequired,
@@ -33,18 +33,28 @@ class ReceiptCalculatorContainer extends Component {
     updateOutputVolume: PropTypes.func.isRequired,
     addElement: PropTypes.func.isRequired,
     loadElements: PropTypes.func.isRequired,
+    clearElements: PropTypes.func.isRequired,
   }
 
   constructor(props) {
     super(props)
     this.state = {
       addName: 'element name',
+      addReceiptName: 'new receipt',
     }
   }
 
   render() {
     const onAddNameChange = v => {
-      this.setState({ addName: v })
+      this.setState({
+        addName: v,
+      })
+    }
+
+    const onAddReceiptNameChange = v => {
+      this.setState({
+        addReceiptName: v,
+      })
     }
 
     const onAddElement = () => {
@@ -72,8 +82,41 @@ class ReceiptCalculatorContainer extends Component {
           )
           return newValue
         })
-        loadElements(newElements, inputVolume)
+        loadElements(newElements, {value: inputVolume, unit: units.gallon.name})
       })
+    }
+    
+    const onSave = () => {
+      const { addReceiptName } = this.state
+      const { inputVolume, elements, clearElements } = this.props
+      if(_.isEmpty(addReceiptName.trim()) || _.isEmpty(elements))
+        return console.log('is not validate schema')
+      const data = {
+        name: addReceiptName,
+        volume: {
+          volume: inputVolume,
+          unit: 'gallon',
+        },
+        elements: _.map(elements, element => ({
+          name: element.name,
+          value: element.inValue,
+          unit: element.unit,
+        })),
+      }
+
+      request
+        .post('http://127.0.0.1:3000/receipt', data)
+        .then(function(response) {
+          console.log(response)
+          this.setState({
+            addReceiptName: '',
+          })
+          clearElements()
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
+
     }
 
     const {
@@ -89,7 +132,14 @@ class ReceiptCalculatorContainer extends Component {
             Calculate
           </BasicButton>
 
-          <BasicButton m={3} onClick={onCalculate}>
+          <HalfBox m={3}>
+            <Input
+              value={this.state.addReceiptName}
+              onChange={onAddReceiptNameChange}
+            />
+          </HalfBox>
+
+          <BasicButton m={3} onClick={onSave}>
             Save Receipt
           </BasicButton>
         </FlexCenter>
@@ -131,8 +181,8 @@ class ReceiptCalculatorContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  inputVolume: state.receipt.input.volume,
-  outputVolume: state.receipt.output.volume,
+  inputVolume: state.receipt.input.value,
+  outputVolume: state.receipt.output.value,
   elements: state.receipt.elements,
 })
 
@@ -141,6 +191,7 @@ const mapDispatchToProps = _.curry(bindActionCreators)({
   updateOutputVolume: receiptAction.updateOutputVolume,
   addElement: receiptAction.addElement,
   loadElements: receiptAction.loadElements,
+  clearElements: receiptAction.clearElements,
 })
 
 export default connect(

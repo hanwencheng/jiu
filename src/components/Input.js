@@ -56,12 +56,12 @@ export class InputNumber extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = { value: props.value }
+    this.state = {value: this.props.value}
     this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange(event) {
-    const { onChange, min, max } = this.props
+    const { min, max } = this.props
     let value = parseFloat(event.target.value)
     if (_.isNaN(value)) value = 0
 
@@ -70,9 +70,7 @@ export class InputNumber extends React.Component {
     } else if (value > max) {
       value = max
     }
-    if (value === this.state.value) return
-    this.setState({ value })
-    return onChange(value)
+    this.setState({value})
   }
 
   render() {
@@ -82,6 +80,7 @@ export class InputNumber extends React.Component {
           type="number"
           value={this.state.value}
           onChange={this.handleChange}
+          onBlur={()=>this.props.onChange(this.state.value)}
         />
       </NumberInputContainer>
     )

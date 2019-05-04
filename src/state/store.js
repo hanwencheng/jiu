@@ -3,9 +3,9 @@ import { receiptReducer } from './receiptReducer'
 
 const logger = store => next => action => {
   console.group(action.type)
-  // console.info('dispatching', action);
+  // console.info('previous state', store.getState());
   let result = next(action)
-  // console.log('next state', store.getState());
+  console.log('next state', store.getState());
   console.groupEnd()
   return result
 }

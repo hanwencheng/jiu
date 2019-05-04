@@ -1,14 +1,10 @@
 module.exports = {
   siteMetadata: {
-    title: `Coolest Library`,
-    author: `Pedro Nauck`,
-    description: `Gatsby starter with Docz and a blog for your documentation`,
+    title: `Brew Keller`,
+    author: `Hanwen Cheng`,
+    description: `Everything about brewing beer`,
   },
-  __experimentalThemes: [
-    {
-      resolve: 'gatsby-theme-docz',
-    },
-  ],
+  __experimentalThemes: ['gatsby-theme-docz'],
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,
@@ -39,6 +35,14 @@ module.exports = {
         ],
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/receipts/`,
+        name: 'receipt',
+      },
+    },
+    `gatsby-transformer-json`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-offline`,

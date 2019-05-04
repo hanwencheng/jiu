@@ -25,10 +25,14 @@ export const receiptAction = {
     volume,
   }),
   clearElements: () => ({ type: receiptActionsType.CLEAR_ELEMENTS }),
-  updateInputVolume: volume => ({
-    type: receiptActionsType.UPDATE_INPUT_VOLUME,
-  }),
+  updateInputVolume: volume => {
+    debugger;
+    return ({
+      type: receiptActionsType.UPDATE_INPUT_VOLUME,
+      volume,
+    })
+  },
   updateOutputVolume: volume => ({
-    type: receiptActionsType.UPDATE_OUTPUT_VOLUME,
+    type: receiptActionsType.UPDATE_OUTPUT_VOLUME, volume,
   }),
 }

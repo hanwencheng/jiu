@@ -11,14 +11,14 @@ export const INIT_VALUE = {
       unit: units.ounce.name,
     },
   },
-  input: { volume: 5, unit: volumeUnits.gallon.name },
-  output: { volume: 30, unit: volumeUnits.liter.name },
+  input: { value: 5, unit: volumeUnits.gallon.name },
+  output: { value: 30, unit: volumeUnits.liter.name },
 }
 
 export const receiptReducer = (state = INIT_VALUE, action) => {
   switch (action.type) {
     case receiptActionsType.ADD_ELEMENT: {
-      const elements = _.assign({}, state.elements, {
+      const elements = _.merge({}, state.elements, {
         [action.element.name]: action.element,
       })
       return {
@@ -27,7 +27,7 @@ export const receiptReducer = (state = INIT_VALUE, action) => {
       }
     }
     case receiptActionsType.DELETE_ELEMENT: {
-      const elements = _.omit(state, action.elementName)
+      const elements = _.omit(state.elements, action.elementName)
       return {
         ...state,
         elements,
@@ -37,6 +37,7 @@ export const receiptReducer = (state = INIT_VALUE, action) => {
       const elements = _.merge({}, state.elements, {
         [action.elementName]: action.elementData,
       })
+      console.log('elements', elements)
       return {
         ...state,
         elements,
@@ -46,7 +47,7 @@ export const receiptReducer = (state = INIT_VALUE, action) => {
       return {
         ...state,
         elements: action.elements,
-        volume: action.volume,
+        input: action.volume,
       }
     }
     case receiptActionsType.CLEAR_ELEMENTS: {
@@ -55,13 +56,13 @@ export const receiptReducer = (state = INIT_VALUE, action) => {
     case receiptActionsType.UPDATE_INPUT_VOLUME: {
       return {
         ...state,
-        input: { volume: action.volume, unit: INIT_VALUE.input.unit },
+        input: { value: action.volume, unit: INIT_VALUE.input.unit },
       }
     }
     case receiptActionsType.UPDATE_OUTPUT_VOLUME: {
       return {
         ...state,
-        output: { volume: action.volume, unit: INIT_VALUE.output.unit },
+        output: { value: action.volume, unit: INIT_VALUE.output.unit },
       }
     }
 

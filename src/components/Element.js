@@ -13,7 +13,7 @@ import { connect } from 'react-redux'
 
 class Element extends React.Component {
   static propTypes = {
-    element: PropTypes.string.isRequired,
+    element: PropTypes.object.isRequired,
 
     updateElement: PropTypes.func.isRequired,
     deleteElement: PropTypes.func.isRequired,
@@ -34,7 +34,7 @@ class Element extends React.Component {
           <InputNumber
             value={element.inValue}
             onChange={value => {
-              const elementData = _.assign(element, { inValue: value })
+              const elementData = _.assign({}, element, { inValue: value })
               updateElement(element.name, elementData)
             }}
           />

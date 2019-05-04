@@ -34,10 +34,8 @@ export default class ReceiptCalculatorPage extends React.Component {
         >
           <ReceiptLeftBar
             list={receiptNodes}
-            onClick={v => this.selectReceipt(v)}
           />
           <ReceiptCalculatorContainer
-            selectedReceipt={this.state.selectedReceipt}
             list={receiptNodes}
           />
         </TwoRowLayout>
@@ -48,19 +46,19 @@ export default class ReceiptCalculatorPage extends React.Component {
 
 export const pageQuery = graphql`
   query {
-    allReceiptsJson {
+    allReceiptsJson{
       edges {
         node {
+          name,
+          elements {
+            name
+            value
+            unit
+          },
           volume {
             value
             unit
-          }
-          elements {
-            value
-            unit
-            name
-          }
-          name
+          },
         }
       }
     }
