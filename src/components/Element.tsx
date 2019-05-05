@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import * as React from "react";
 import { units } from '../constants/brewConstants'
 import { Box, Flex } from 'rebass'
 import { BasicButton, Title, FlexCenter } from './basics'
@@ -6,18 +6,18 @@ import _ from 'lodash'
 import { InputNumber } from './Input'
 import { SelectBasic } from './Select'
 import { upperCased } from '../utils/stringUtils'
-import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { receiptAction } from '../state/receiptActions'
 import { connect } from 'react-redux'
+import { ElementData } from '../../types/receipt'
 
-class Element extends React.Component {
-  static propTypes = {
-    element: PropTypes.object.isRequired,
+interface ElementProps {
+  element: ElementData,
+  updateElement: typeof receiptAction.updateElement,
+  deleteElement: typeof receiptAction.deleteElement,
+}
 
-    updateElement: PropTypes.func.isRequired,
-    deleteElement: PropTypes.func.isRequired,
-  }
+class Element extends React.Component<ElementProps> {
 
   render() {
     delete units['__filemeta']
@@ -57,9 +57,7 @@ class Element extends React.Component {
         </PaddingBox>
 
         <PaddingBox mr={0}>
-          <BasicButton onClick={() => deleteElement(element.name)}>
-            delete
-          </BasicButton>
+          <BasicButton onClick={() => deleteElement(element.name)}>delete</BasicButton>
         </PaddingBox>
       </Flex>
     )

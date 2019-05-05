@@ -1,3 +1,5 @@
+import { ElementData } from '../../types/receipt'
+
 export const receiptActionsType = {
   ADD_ELEMENT: 'RECEIPT_ADD_ELEMENT',
   DELETE_ELEMENT: 'RECEIPT_DELETE_ELEMENT',
@@ -6,13 +8,6 @@ export const receiptActionsType = {
   CLEAR_ELEMENTS: 'RECEIPT_CLEAR_ELEMENTS',
   UPDATE_INPUT_VOLUME: 'RECEIPT_UPDATE__INPUT_VOLUME',
   UPDATE_OUTPUT_VOLUME: 'RECEIPT_UPDATE_OUTPUT_VOLUME',
-}
-
-interface ElementData {
-  inValue: number
-  outValue: number
-  name: string
-  unit: string
 }
 
 interface VolumeData {

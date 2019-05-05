@@ -4,7 +4,7 @@ export default {
   title: 'Brew Keller',
   base: '/docs/',
   ignore: ['**/blog/**', 'readme.md'],
-  menu: ['Wow', 'Components'],
+  menu: ['Elements', 'Basics', 'Processes'],
   repository: false,
   themeConfig: {
     colors: {

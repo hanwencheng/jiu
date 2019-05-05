@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
 import { Box } from 'rebass'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import * as React from "react";
+import _ from 'lodash'
 
 const NumberInputContainer = styled(Box)`
   max-width: 80px;
@@ -11,11 +11,16 @@ const NumberInputBar = styled.input`
   text-align: center;
 `
 
-export class Input extends Component {
-  static propTypes = {
-    onChange: PropTypes.func.isRequired,
-    value: PropTypes.string,
-  }
+type InputProps = {
+  onChange: Function,
+  value: string,
+}
+
+type InputState = {
+  value: string
+}
+
+export class Input extends React.Component<InputProps, InputState> {
 
   constructor(props) {
     super(props)
@@ -40,13 +45,18 @@ export class Input extends Component {
   }
 }
 
-export class InputNumber extends React.Component {
-  static propTypes = {
-    onChange: PropTypes.func.isRequired,
-    value: PropTypes.number,
-    min: PropTypes.number,
-    max: PropTypes.number,
-  }
+type InputNumberProps = {
+  onChange: Function,
+  value: number,
+  min: number,
+  max: number
+}
+
+type InputNumberState = {
+  value: number
+}
+
+export class InputNumber extends React.Component<InputNumberProps, InputNumberState> {
 
   static defaultProps = {
     min: 0,

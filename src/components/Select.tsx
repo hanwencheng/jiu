@@ -1,13 +1,13 @@
-import React from 'react'
 import { Box } from 'rebass'
-import PropTypes from 'prop-types'
+import React from 'react';
 
-export class SelectBasic extends React.Component {
-  static propTypes = {
-    onChange: PropTypes.func.isRequired,
-    value: PropTypes.string,
-    options: PropTypes.array.isRequired,
-  }
+interface SelectBasicProps {
+  onChange: Function,
+  value: string,
+  options: Array<any>,
+}
+
+export class SelectBasic extends React.Component<SelectBasicProps> {
 
   render() {
     const { options, onChange, value } = this.props
