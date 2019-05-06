@@ -4,3 +4,12 @@ export interface ElementData {
   name: string
   unit: string
 }
+
+export interface ElementsHashMap {
+  [key :string] :ElementData
+}
+
+export interface VolumeData {
+  value: number
+  unit: string
+}

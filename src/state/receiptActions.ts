@@ -1,4 +1,4 @@
-import { ElementData } from '../../types/receipt'
+import { ElementData, ElementsHashMap, VolumeData } from '../../types/receipt'
 
 export const receiptActionsType = {
   ADD_ELEMENT: 'RECEIPT_ADD_ELEMENT',
@@ -8,11 +8,6 @@ export const receiptActionsType = {
   CLEAR_ELEMENTS: 'RECEIPT_CLEAR_ELEMENTS',
   UPDATE_INPUT_VOLUME: 'RECEIPT_UPDATE__INPUT_VOLUME',
   UPDATE_OUTPUT_VOLUME: 'RECEIPT_UPDATE_OUTPUT_VOLUME',
-}
-
-interface VolumeData {
-  value: number
-  unit: string
 }
 
 export const receiptAction = {
@@ -29,7 +24,7 @@ export const receiptAction = {
     elementName,
     elementData,
   }),
-  loadElements: (elements: Array<ElementData>, volumeData: VolumeData) => ({
+  loadElements: (elements: ElementsHashMap, volumeData: VolumeData) => ({
     type: receiptActionsType.LOAD_ELEMENTS,
     elements,
     volumeData,

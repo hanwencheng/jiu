@@ -14,7 +14,7 @@ import { receiptAction } from '../state/receiptActions'
 import { connect } from 'react-redux'
 
 const AnimatedArrow = styled(IoIosArrowDown)`
-  transform: ${props => (props.flip ? 'rotateX(180deg)' : '')};
+  transform: ${props => (props.flip ? 'rotateX(180deg)' : 'rotateX(0deg)')};
   animation: keyframes(flip) 0.5s;
   transition: transform 0.5s;
 `
@@ -80,12 +80,19 @@ class ReceiptLeftBar extends React.Component {
   onClickReceiptName(receiptName) {
     const { list, loadElements } = this.props
     const receipt = _.find(list, { name: receiptName })
-    const elements = _.map(receipt.elements, element => ({
-      name: element.name,
-      inValue: element.value,
-      outValue: 0,
-      unit: element.unit,
-    }))
+    const elements = _.reduce(
+      receipt.elements,
+      (acc, element) =>
+        _.assign(acc, {
+          [element.name]: {
+            name: element.name,
+            inValue: element.value,
+            outValue: 0,
+            unit: element.unit,
+          },
+        }),
+      {}
+    )
     loadElements(elements, receipt.volume)
   }
 
