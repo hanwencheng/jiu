@@ -53,7 +53,7 @@ type InputNumberProps = {
 }
 
 type InputNumberState = {
-  value: number
+  value: string
 }
 
 export class InputNumber extends React.Component<InputNumberProps, InputNumberState> {
@@ -61,36 +61,48 @@ export class InputNumber extends React.Component<InputNumberProps, InputNumberSt
   static defaultProps = {
     min: 0,
     max: 10000,
-    value: 0,
+    value: "",
   }
 
   constructor(props) {
     super(props)
-    this.state = {value: this.props.value}
+    this.state = {value: this.props.value.toString()}
     this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange(event) {
     const { min, max } = this.props
+    if(event.target.value === "")
+      return this.setState({value: ""})
+
+    let isValidateInput = /^\d*\.?\d*\.?$/.test(event.target.value);
+    if(!isValidateInput) return;
+
     let value = parseFloat(event.target.value)
-    if (_.isNaN(value)) value = 0
+    if (_.isNaN(value)) return
 
     if (value < min) {
       value = min
     } else if (value > max) {
       value = max
+    } else {
+      value = event.target.value
     }
-    this.setState({value})
+
+    this.setState({value: value.toString()})
   }
 
   render() {
     return (
       <NumberInputContainer justifyContent="center" alignItems="center">
         <NumberInputBar
-          type="number"
-          value={this.state.value}
+          type="text"
+          value={this.state.value.toString()}
           onChange={this.handleChange}
-          onBlur={()=>this.props.onChange(this.state.value)}
+          onBlur={()=>{
+            const number = parseFloat(_.isEmpty(this.state.value) ? "0" : this.state.value)
+            this.props.onChange(number)
+          }}
         />
       </NumberInputContainer>
     )
