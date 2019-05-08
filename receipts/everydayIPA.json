@@ -1,10 +1,1 @@
-{
-  "name" : "everyday IPA",
-  "volume": {
-    "value": 5, "unit": "gallon"
-  },
-  "elements": [
-    {"name":"water", "value" : 2.5, "unit": "quart"},
-    {"name": "2-row-malt", "value": 1.8, "unit": "pound"}
-  ]
-}
+{"name":"everyday IPA","volume":{"value":5,"unit":"gallon"},"elements":[{"name":"water","value":3.25,"unit":"gallon"},{"name":"sparging water","value":5,"unit":"gallon"},{"name":"pale ale malt","value":9.5,"unit":"pound"},{"name":"caramel malt","value":2,"unit":"pound"},{"name":"biscuit malt","value":1,"unit":"pound"},{"name":"cascade hops","value":0.5,"unit":"ounce"},{"name":"hallertau hops","value":2.5,"unit":"pound"}]}
