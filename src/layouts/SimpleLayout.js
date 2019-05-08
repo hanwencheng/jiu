@@ -23,7 +23,6 @@ export default class SimpleLayout extends React.Component {
     return (
       <ThemeProvider theme={theme}>
         <React.Fragment>
-          <Navigation />
           <LayoutHeader title={title} subtitle={subtitle}/>
           <Container>
             <main>{children}</main>

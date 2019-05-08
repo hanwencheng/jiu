@@ -1,11 +1,12 @@
-import { Heading, Flex, Image, Box } from 'rebass'
+import { Heading, Flex, Image, Box, Button } from 'rebass'
 import _ from 'lodash'
-import React from 'react'
+import React, { useState } from 'react'
 import { Header } from './basics'
 import favicon from '../../static/icons/gopherLogo.png'
 import { IoIosMenu } from 'react-icons/io'
 import styled, { keyframes } from 'styled-components'
 import { fadeIn, fadeOut, flip } from 'react-animations'
+import { navigate } from 'gatsby'
 
 interface Props {
   title: string
@@ -17,9 +18,25 @@ interface showProps {
 }
 
 const MenuIcon = styled(IoIosMenu)`
-  
+  font-size: ${props => props.theme.fontSizes[5] }
 `
-const MenuList = () => <Box></Box>
+const MenuList = ({ className }) => (
+  <Flex className={className} mt={1} flexDirection="column" justifyContent="space-around" width={1}>
+    <Button m={2} variant="secondary" onClick={() => navigate('/')}>
+      Home
+    </Button>
+    <Button
+      m={2}
+      variant="secondary"
+      onClick={() => navigate('/receiptCalculator')}
+    >
+      Receipt Calculator
+    </Button>
+    <Button m={2}variant="secondary" onClick={() => navigate('/docs')}>
+      Docs
+    </Button>
+  </Flex>
+)
 
 const AnimateMenuList = styled(MenuList)<showProps>`
   visibility: ${props => (props.show ? 'visible' : 'hidden')};
@@ -27,6 +44,9 @@ const AnimateMenuList = styled(MenuList)<showProps>`
     0.5s;
   display: inline-block;
   transition: visibility 0.5s;
+  position: absolute;
+  right: 100px;
+  top: 20px;
 `
 
 const RightFlex = styled(Flex)`
@@ -34,24 +54,30 @@ const RightFlex = styled(Flex)`
   right: 0;
 `
 
-export default class LayoutHeader extends React.Component<Props> {
-  render() {
-    const { title, subtitle } = this.props
-    return (
-        <Header py={4} mb={2} >
-          <Flex px={2}>
-            <Image src={favicon} height={80}/>
-          </Flex>
-          <Flex px={2} flexDirection={"column"} alignItems="center">
-            <Heading fontSize={[5, 6]}>{title}</Heading>
-            {!_.isEmpty(subtitle) && (
-              <Heading fontWeight={400}>{subtitle}!</Heading>
-            )}
-          </Flex>
-          <RightFlex pr={3} alignSelf={"center"}>
-            <MenuIcon/>
-          </RightFlex>
-        </Header>
-    )
-  }
+export default function LayoutHeader<Props>({ title, subtitle }) {
+  const [isMenuOpen, setMenuVisible] = useState<boolean>(false)
+
+  console.log('is menu opened', isMenuOpen)
+
+  return (
+    <Header py={4} mb={2}>
+      <Flex px={2}>
+        <Image src={favicon} height={80} />
+      </Flex>
+      <Flex px={2} flexDirection={'column'} alignItems="center">
+        <Heading fontSize={[5, 6]}>{title}</Heading>
+        {!_.isEmpty(subtitle) && (
+          <Heading fontWeight={400}>{subtitle}!</Heading>
+        )}
+      </Flex>
+      <RightFlex
+        pr={3}
+        alignSelf={'center'}
+        onClick={() => setMenuVisible(!isMenuOpen)}
+      >
+        <MenuIcon size={32}/>
+        <AnimateMenuList show={isMenuOpen} />
+      </RightFlex>
+    </Header>
+  )
 }

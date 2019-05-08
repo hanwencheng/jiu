@@ -23,7 +23,6 @@ export default class TwoRowLayout extends React.Component {
     return (
       <ThemeProvider theme={theme}>
         <React.Fragment>
-          <Navigation />
           <LayoutHeader title={title} subtitle={subtitle} />
           <Flex>
             <Box width={1 / 4}>{children[0]}</Box>

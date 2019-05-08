@@ -61,7 +61,6 @@ const AnimateReceiptList = styled(ReceiptList)`
 class ReceiptLeftBar extends React.Component {
   static propTypes = {
     list: PropTypes.array.isRequired,
-
     loadElements: PropTypes.func.isRequired,
   }
 
