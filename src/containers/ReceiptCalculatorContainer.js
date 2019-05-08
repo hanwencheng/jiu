@@ -94,7 +94,7 @@ class ReceiptCalculatorContainer extends Component {
       const data = {
         name: addReceiptName,
         volume: {
-          volume: inputVolume,
+          value: inputVolume,
           unit: 'gallon',
         },
         elements: _.map(elements, element => ({

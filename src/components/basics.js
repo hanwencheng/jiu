@@ -5,7 +5,7 @@ import { rhythm } from '../utils/typography'
 
 export const Header = styled(Box)`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   background: ${p => p.theme.colors.lightgray};

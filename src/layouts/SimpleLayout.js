@@ -10,6 +10,7 @@ import Navigation from '../components/Navigation'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import { Footer } from '../components/Footer'
+import LayoutHeader from '../components/LayoutHeader'
 
 export default class SimpleLayout extends React.Component {
   static propTypes = {
@@ -23,12 +24,7 @@ export default class SimpleLayout extends React.Component {
       <ThemeProvider theme={theme}>
         <React.Fragment>
           <Navigation />
-          <Header py={5} mb={2}>
-            <Heading fontSize={[5, 6]}>{title}</Heading>
-            {!_.isEmpty(subtitle) && (
-              <Heading fontWeight={400}>{subtitle}!</Heading>
-            )}
-          </Header>
+          <LayoutHeader title={title} subtitle={subtitle}/>
           <Container>
             <main>{children}</main>
             <Separator />
