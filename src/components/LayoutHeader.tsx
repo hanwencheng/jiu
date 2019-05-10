@@ -2,7 +2,7 @@ import { Heading, Flex, Image, Box, Button } from 'rebass'
 import _ from 'lodash'
 import React, { useState } from 'react'
 import { Header } from './basics'
-import favicon from '../../static/icons/gopherLogo.png'
+import logoImage from '../../static/icons/gopherBeerLogo.png'
 import { IoIosMenu } from 'react-icons/io'
 import styled, { keyframes } from 'styled-components'
 import { fadeIn, fadeOut, flip } from 'react-animations'
@@ -60,9 +60,9 @@ export default function LayoutHeader<Props>({ title, subtitle }) {
   console.log('is menu opened', isMenuOpen)
 
   return (
-    <Header py={4} mb={2}>
+    <Header py={3} mb={4}>
       <Flex px={2}>
-        <Image src={favicon} height={80} />
+        <Image src={logoImage} height={100} />
       </Flex>
       <Flex px={2} flexDirection={'column'} alignItems="center">
         <Heading fontSize={[5, 6]}>{title}</Heading>
