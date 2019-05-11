@@ -61,3 +61,13 @@ divide into 3 parts.
 * Let the water flow through the air, let the air take the heat away.
 * prepare more ice
 * 
+
+
+
+## Fermentation
+Gravity before fermentation: 1.046
+
+
+#### cautions:
+* need a airlock for keg
+* 
