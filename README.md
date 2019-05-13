@@ -1,7 +1,7 @@
 <div style="display: flex; width: 100%; align-items:center; justify-content: center;">
 	<img src="./static/icons/gopherBeerLogo.png"
 	     alt="Gopher beer icon"
-	     style="height: 150px"/>
+	     height="150"/>
 </div>
 
 ## Secret Brewing Keller
