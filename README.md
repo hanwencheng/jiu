@@ -1,9 +1,8 @@
-<div style="display: flex; width: 100%; align-items:center; justify-content: center;">
 	<img src="./static/icons/gopherBeerLogo.png"
+				align="left"
 	     alt="Gopher beer icon"
 	     height="150"/>
-</div>
-
+	     
 ## Secret Brewing Keller
 
 The studies and blogs about beer brewing and related tools build on Javascript (Typescript).
