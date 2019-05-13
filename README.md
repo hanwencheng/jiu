@@ -1,7 +1,7 @@
-	<img src="./static/icons/gopherBeerLogo.png"
-				align="left"
-	     alt="Gopher beer icon"
-	     height="150"/>
+<img src="./static/icons/gopherBeerLogo.png"
+		 align="left"
+     alt="Gopher beer icon"
+     height="150"/>
 	     
 ## Secret Brewing Keller
 
