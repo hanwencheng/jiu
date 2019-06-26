@@ -45,8 +45,8 @@ lautern
 
 ## Hops
 80g Perle
-25g cirtus
-10g cascade
+25g Citra
+10g Cascade
 
 It cost 60 minutes in total to boil.
 
@@ -55,6 +55,7 @@ divide into 3 parts.
 * after 20 minutes add second parts, 
 * after 30 minutes, 10 minutes before ending, add the last part of hops. 
 
+IBU: Perle 28.76 + Citra 12.08 + Cascade 4.99 = 45.83
 
 ## Cooling
 
