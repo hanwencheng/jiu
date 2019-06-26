@@ -39,6 +39,13 @@ export default class Navigation extends React.Component {
             <Button
               ml={1}
               variant="secondary"
+              onClick={() => navigate('/ibuCalculator')}
+            >
+              IBU Calculator
+            </Button>
+            <Button
+              ml={1}
+              variant="secondary"
               onClick={() => navigate('/docs')}
             >
               Docs

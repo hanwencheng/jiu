@@ -9,4 +9,9 @@ export default {
     subtitle: '',
     keywords: ['receipt', 'calculator'],
   },
+  ibuCalculator: {
+    title: 'IBU Calculator',
+    subtitle: '',
+    keywords: ['ibu', 'hops', 'calculator'],
+  }
 }

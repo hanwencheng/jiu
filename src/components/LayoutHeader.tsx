@@ -32,6 +32,13 @@ const MenuList = ({ className }) => (
     >
       Receipt Calculator
     </Button>
+    <Button
+      ml={2}
+      variant="secondary"
+      onClick={() => navigate('/ibuCalculator')}
+    >
+      IBU Calculator
+    </Button>
     <Button m={2}variant="secondary" onClick={() => navigate('/docs')}>
       Docs
     </Button>
