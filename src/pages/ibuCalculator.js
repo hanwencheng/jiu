@@ -5,6 +5,8 @@ import pagesList from '../pagesList'
 import _ from 'lodash'
 import SimpleLayout from '../layouts/SimpleLayout'
 
+import { BasicButton, FlexCenter } from '../components/basics'
+
 export default class IBUCalculatorPage extends React.Component {
   constructor(props) {
     super(props)
@@ -26,6 +28,9 @@ export default class IBUCalculatorPage extends React.Component {
           title={pageMeta.title}
           subtitle={pageMeta.subtitle}
         >
+          <BasicButton m={3} onClick={() => import('../../rust/pkg').then((wasm)=> wasm.greet())}>
+            Calculate
+          </BasicButton>
         </SimpleLayout>
       </React.Fragment>
     )
