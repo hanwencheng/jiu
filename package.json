@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "antd": "^3.16.6",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "docz": "1.1.0",
     "docz-theme-default": "1.1.0",
